@@ -1,18 +1,30 @@
 * {
  border:2px solid green;
 }
-
+/*add reset.css*/
 .image_container {
   margin:auto 0;
 }
-li {
+/*li {
   display:inline-block;
 
-  }
+  }*/
 img {
-    width:150px;
+    width:25%;
+    margin:20px;
+    border: 5px solid black;
+
 }
 
+img {
+  width: 25%;
+  margin: 20px;
+  border: 5px solid black;
+}
+
+section {
+  /*outline: 5px dotted orange;*/
+}
 ul {
   list-style-type: none;
 }

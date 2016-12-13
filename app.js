@@ -1,96 +1,123 @@
 'use strict';
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Global variables for DOM access and such
-var BusMall = document.getElementById('bus-mall');
+//DOM variables
+var picContainer = document.getElementById('pic-container');
+var left = document.getElementById('left');
+var center = document.getElementById('center');
+var right = document.getElementById('right');
+
+// Global variables
 var allProducts = [];
 var clickCount = 0;
-//var lastThreeNums = [];
+var names = ['bag', 'banana', 'bathroom', 'boots','breakfast','bubblegum', 'chair',
+  'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep',
+  'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+var newArray = [];
+var oldArray = [];
 
-//var StoreProduct = function
-var Storeprod = function(prodName, imagePath, clickedTalley, views) {
+
+function Storeprod(prodName) {
   this.prodName = prodName;
-  this.imagePath = imagePath;
-  this.clickedTalley= clickedTalley;
-  this.views = views;
+  this.imagePath = 'img/' + prodName + '.jpg'; //all files must have the same extension
+  this.clicks= 0;
+  this.views = 0;
   allProducts.push(this); //this pushes the data above into the all stores Products array
 }
 
-function storeprod() { //this is outside the constructor
-  new Storeprod('bag', 'img/bag.jpg', 0, 0);
-  new Storeprod('banana', 'img/banana.jpg', 0, 0);
-  new Storeprod('bathroom','img/bathroom.jpg', 0, 0);
-  new Storeprod('boots', 'img/boots.jpg', 0, 0);
-  new Storeprod('breakfast','img/breakfast.jpg', 0, 0);
-  new Storeprod('bubblegum', 'img/bubblegum.jpg', 0, 0);
-  new Storeprod('chair', 'img/chair.jpg', 0, 0);
-  new Storeprod('cthulhu','img/cthulhu.jpg', 0, 0);
-  new Storeprod('dog-duck', 'img/dog-duck.jpg', 0, 0);
-  new Storeprod('dragon','img/dragon.jpg', 0, 0);
-  new Storeprod('pen', 'img/pen.jpg', 0, 0);
-  new Storeprod('pet-sweep', 'img/pet-sweep.jpg', 0, 0);
-  new Storeprod('scissors','img/scissors.jpg', 0, 0);
-  new Storeprod('shark', 'img/shark.jpg', 0, 0);
-  new Storeprod('sweep','img/sweep.png', 0, 0);
-  new Storeprod('tauntaun', 'img/tauntaun.jpg', 0, 0);
-  new Storeprod('unicorn', 'img/unicorn.jpg', 0, 0);
-  new Storeprod('usb','img/usb.gif', 0, 0);
-  new Storeprod('water-can', 'img/water-can.jpg', 0, 0);
-  new Storeprod('wine-glass','img/wine-glass.jpg', 0, 0);
+//Instances will be created using the global names array
+for (var i = 0; i < names.length; i++) { //this for loop will generate our instances
+  new Storeprod(names[i]);
 }
-storeprod();
 
-// This picks random pictures to be viewed and sends it to html
+// This assigns a random number to the pictures to be viewed and sends it to html
 function getRandomImages() {
-  for (var i = 0; i < allProducts.length; i++) {
-    var randomImages = Math.floor(Math.random() * allProducts.length);
-    console.log(randomImages);
-    console.log('here are my random images', allProducts[randomImages]);
+  return Math.floor(Math.random() * allProducts.length);
+}
+//Crete an array of three random numbers
+function arrayOfThreeNumbers() {
+  oldArray [0] = newArray[0];
+  oldArray [1] = newArray[1];
+  oldArray [2] = newArray[2];
 
-    var left = document.getElementById('left');
-    left.src = allProducts[randomImages].imagePath;
-
-    var center = document.getElementById('center');
-    center.src = allProducts[randomImages[i]].imagePath;
-
-    var right = document.getElementById('right');
-    right.src = allProducts[randomImages].imagePath;
-    // lastThreeNums[i] = randomImages;
-    // console.log(lastThreeNums);
+  newArray[0] = getRandomImages();
+  //tests fist position of new array against the 1st second and third positions of the old array
+  while (newArray[0] === oldArray[0] || newArray[0] === oldArray[1] ||
+    newArray[0] === oldArray[2]) {
+    console.log(newArray, 'broken value in first position of new array');
+    newArray[0] = getRandomImages();
+    console.log('fixed');
+  }
+  newArray[1] = getRandomImages();
+//tests the second position of the new array against the 1st and third
+  while (newArray[1] === newArray[0] || newArray[1] === oldArray[0] ||
+    newArray[1] === oldArray[1] || newArray[1] === oldArray[2]) {
+    //console.log(newArray, 'old broken array');
+    newArray[1] = getRandomImages();
+    //console.log ('caught dupes between 1st and 2nd numbers');
+  }
+  newArray[2] = getRandomImages();
+  while (newArray[2] === newArray[0] || newArray[2] === newArray[1] ||
+    newArray[2] === oldArray[0] || newArray[2] === oldArray[1] ||
+    newArray[2] === oldArray[2]) {
+    console.log(newArray, 'old broken array');
+    newArray[2] = getRandomImages();
+    console.log ('caught dupe between with 3rd number');
   }
 }
-  // var secondNum = randomImages;
-  //   //console.log(secondNum);
-  // var thirdNum = randomImages;
-  //   //console.log(thirdNum);
+arrayOfThreeNumbers();
+//console.log('---------');
+//console.log(oldArray, 'old array');
+//console.log(newArray, 'new array');
 
-getRandomImages();
+  // this will place three new images on the page
+function displayThreePics() {
+  arrayOfThreeNumbers();
+  left.src = allProducts[newArray[0]].imagePath; //imagePath is part of the constructor
+  allProducts[newArray[0]].views += 1;//views is part of the constructor
+  center.src = allProducts[newArray[1]].imagePath;
+  allProducts[newArray[1]].views += 1;
+  right.src = allProducts[newArray[2]].imagePath;
+  allProducts[newArray[2]].views += 1;
+}
 
-// function displayImages() {
-//   var left = document.getElementById('left');
-//   left.src = allProducts[randomImages].imagePath;
-//
-//   var center = document.getElementById('center');
-//   center.src = allProducts[randomImages].imagePath;
-//
-//   var right = document.getElementById('right');
-//   right.src = allProducts[randomImages].imagePath;
-// }
-//displayImages();
-
+displayThreePics();
 
 //This is my function declaration for the event handler
-// function handlerEventClick(event) {
-//   event.preventDefault(); //gotta have it for this purpose. prevents page reload on a 'submit' event
-//   if (clickCount >5) {
-//     return;
-//   }
-//   if (!event.target.imagePath.value) {
-//     return alert('You must click on an image!');
-//   }
-// //call clear function to clear images
-// //call set images to view function
-// }
-//handlerEventClick();
+function handlerEventClick(event) {//see picContainer below this is where its tied to
+  event.preventDefault();
+  console.log(event.target.src, 'was clicked'); // identify who was clicked
+
+  if (event.target.id === 'pic-container') { // alert for clicks not on images(event.target
+    return alert('Click on the image, not in between');
+  }
+
+// tally the click
+  if (event.target.id === 'left') {
+    allProducts[newArray[0]].clicks +=1;
+    console.log(allProducts[newArray[0]]);
+  }
+
+  if (event.target.id === 'center') {
+    allProducts[newArray[1]].clicks +=1;
+    console.log(allProducts)
+  }
+
+  if (event.target.id === 'right') {
+    allProducts[newArray[2]].clicks +=1;
+    console.log(allProducts)
+  }
+
+  clickCount +=1;
+
+  if (clickCount > 5) {
+    return alert ('You are out of clicks');
+  }
+//   check wheter total clicks <25
+//   after 25, remove event listeners on picNames
+//  after 25, show "Results" button
+
 //
 //   //Event Listener is always listening
-//   BusMall.addEventListener('click', handlerEventClick);
+  displayThreePics();
+}
+picContainer.addEventListener('click', handlerEventClick);
