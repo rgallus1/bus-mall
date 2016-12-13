@@ -4,15 +4,15 @@
 var BusMall = document.getElementById('bus-mall');
 var allProducts = [];
 var clickCount = 0;
+//var lastThreeNums = [];
 
 //var StoreProduct = function
-var Storeprod = function(prodName, imagePath, talley, views) {
+var Storeprod = function(prodName, imagePath, clickedTalley, views) {
   this.prodName = prodName;
   this.imagePath = imagePath;
-  this.talley= talley;
+  this.clickedTalley= clickedTalley;
   this.views = views;
   allProducts.push(this); //this pushes the data above into the all stores Products array
-
 }
 
 function storeprod() { //this is outside the constructor
@@ -39,12 +39,58 @@ function storeprod() { //this is outside the constructor
 }
 storeprod();
 
+// This picks random pictures to be viewed and sends it to html
+function getRandomImages() {
+  for (var i = 0; i < allProducts.length; i++) {
+    var randomImages = Math.floor(Math.random() * allProducts.length);
+    console.log(randomImages);
+    console.log('here are my random images', allProducts[randomImages]);
 
-  // this.calcRandCustPerHr = function() {
-  //   //console.log('Im in the random customer calc');
-  //     // This will return random number of customers
-  //   for (var i = 0; i < businessHour.length; i++) {
-  //     this.randomCustPerHour.push(Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr+1)) + this.minCustPerHr);
-  //     //console.log('Im in the random customer calc');
-  //   }
-  // this.calcRandCustPerHr();
+    var left = document.getElementById('left');
+    left.src = allProducts[randomImages].imagePath;
+
+    var center = document.getElementById('center');
+    center.src = allProducts[randomImages[i]].imagePath;
+
+    var right = document.getElementById('right');
+    right.src = allProducts[randomImages].imagePath;
+    // lastThreeNums[i] = randomImages;
+    // console.log(lastThreeNums);
+  }
+}
+  // var secondNum = randomImages;
+  //   //console.log(secondNum);
+  // var thirdNum = randomImages;
+  //   //console.log(thirdNum);
+
+getRandomImages();
+
+// function displayImages() {
+//   var left = document.getElementById('left');
+//   left.src = allProducts[randomImages].imagePath;
+//
+//   var center = document.getElementById('center');
+//   center.src = allProducts[randomImages].imagePath;
+//
+//   var right = document.getElementById('right');
+//   right.src = allProducts[randomImages].imagePath;
+// }
+//displayImages();
+
+
+//This is my function declaration for the event handler
+// function handlerEventClick(event) {
+//   event.preventDefault(); //gotta have it for this purpose. prevents page reload on a 'submit' event
+//   if (clickCount >5) {
+//     return;
+//   }
+//   if (!event.target.imagePath.value) {
+//     return alert('You must click on an image!');
+//   }
+// //call clear function to clear images
+// //call set images to view function
+// }
+//handlerEventClick();
+//
+//   //Event Listener is always listening
+//   BusMall.addEventListener('click', handlerEventClick);

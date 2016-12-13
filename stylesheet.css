@@ -1,6 +1,18 @@
 * {
  border:2px solid green;
 }
+
+.image_container {
+  margin:auto 0;
+}
+li {
+  display:inline-block;
+
+  }
 img {
-  width:150px;
+    width:150px;
+}
+
+ul {
+  list-style-type: none;
 }
