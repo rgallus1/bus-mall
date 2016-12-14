@@ -113,10 +113,37 @@ function handlerEventClick(event) {//see picContainer below this is where its ti
     displayList();
     return alert ('You are out of clicks');
   }
-//
+
+
+
 //   //Event Listener is always listening
+
+  var stuff = JSON.stringify(allProducts);
+  localStorage.setItem('productData', stuff);
+
+
   displayThreePics();
 }
+
+//checks to see if there is local storage present
+
+function storeDataRetrieve(){
+if(localStorage.productData){
+  console.log('local Storage exists!')
+
+
+  var retrievedStuff = localStorage.getItem('productData');
+  var parsedStuff = JSON.parse(retrievedStuff);
+
+  allProducts = parsedStuff
+  console.log(allProducts);
+  console.log(parsedStuff);
+}
+
+}
+//calls check to see if local storage is present
+storeDataRetrieve();
+
 
 picContainer.addEventListener('click', handlerEventClick);
 
@@ -191,6 +218,7 @@ function drawChart() {
   });
   chartDrawn = true;
 }
+
 
 // function hideChart() {
 //   document.getElementById('funky-chart').hidden = true;
