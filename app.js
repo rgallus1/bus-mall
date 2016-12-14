@@ -43,9 +43,9 @@ function arrayOfThreeNumbers() {
   //tests fist position of new array against the 1st second and third positions of the old array
   while (newArray[0] === oldArray[0] || newArray[0] === oldArray[1] ||
     newArray[0] === oldArray[2]) {
-    console.log(newArray, 'broken value in first position of new array');
+    //console.log(newArray, 'broken value in first position of new array');
     newArray[0] = getRandomImages();
-    console.log('fixed');
+    console.log(newArray);
   }
   newArray[1] = getRandomImages();
 //tests the second position of the new array against the 1st and third
@@ -59,9 +59,9 @@ function arrayOfThreeNumbers() {
   while (newArray[2] === newArray[0] || newArray[2] === newArray[1] ||
     newArray[2] === oldArray[0] || newArray[2] === oldArray[1] ||
     newArray[2] === oldArray[2]) {
-    console.log(newArray, 'old broken array');
+    //console.log(newArray, 'old broken array');
     newArray[2] = getRandomImages();
-    console.log ('caught dupe between with 3rd number');
+    //console.log ('caught dupe between with 3rd number');
   }
 }
 arrayOfThreeNumbers();
@@ -109,7 +109,7 @@ function handlerEventClick(event) {//see picContainer below this is where its ti
 
   clickCount +=1;
 
-  if (clickCount > 5) {
+  if (clickCount > 25) {
     return alert ('You are out of clicks');
   }
 //   check wheter total clicks <25
@@ -119,5 +119,19 @@ function handlerEventClick(event) {//see picContainer below this is where its ti
 //
 //   //Event Listener is always listening
   displayThreePics();
+  displayList();
 }
 picContainer.addEventListener('click', handlerEventClick);
+
+var pictureList = document.getElementById('picList');
+function displayList() {
+  pictureList.innerHTML = '';
+  for (var i = 0; i < allProducts.length; i++) {
+    var ulEl = document.createElement('ul');
+    var ulEl2 = document.createElement('ul');
+    ulEl.textContent = allProducts[i].prodName + ' has been clicked ' + allProducts[i].clicks + ' times';
+    ulEl2.textContent = allProducts[i].prodName + ' has been viewed ' + allProducts[i].views + ' times';
+    pictureList.appendChild(ulEl);
+    pictureList.appendChild(ulEl2);
+  }
+}
