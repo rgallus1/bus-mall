@@ -110,28 +110,27 @@ function handlerEventClick(event) {//see picContainer below this is where its ti
   clickCount +=1;
 
   if (clickCount > 25) {
+    displayList();
     return alert ('You are out of clicks');
   }
-//   check wheter total clicks <25
-//   after 25, remove event listeners on picNames
-//  after 25, show "Results" button
-
 //
 //   //Event Listener is always listening
   displayThreePics();
-  displayList();
 }
+
 picContainer.addEventListener('click', handlerEventClick);
 
-var pictureList = document.getElementById('picList');
+//display final list
+var pictureList = document.getElementById('pictureList');
 function displayList() {
   pictureList.innerHTML = '';
   for (var i = 0; i < allProducts.length; i++) {
     var ulEl = document.createElement('ul');
-    var ulEl2 = document.createElement('ul');
-    ulEl.textContent = allProducts[i].prodName + ' has been clicked ' + allProducts[i].clicks + ' times';
-    ulEl2.textContent = allProducts[i].prodName + ' has been viewed ' + allProducts[i].views + ' times';
+    //var ulEl2 = document.createElement('ul');
+    ulEl.textContent = allProducts[i].clicks + ' votes for for the ' + allProducts[i].prodName;
+    //ulEl.textContent = allProducts[i].prodName + ' has been clicked ' + allProducts[i].clicks + ' times';
+    //ulEl2.textContent = allProducts[i].prodName + ' has been viewed ' + allProducts[i].views + ' times';
     pictureList.appendChild(ulEl);
-    pictureList.appendChild(ulEl2);
+    //pictureList.appendChild(ulEl2);
   }
 }
