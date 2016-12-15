@@ -1,30 +1,15 @@
 * {
  border:2px solid green;
 }
-/*add reset.css*/
-.image_container {
-  margin:auto 0;
-}
-/*li {
-  display:inline-block;
 
-  }*/
+
 img {
     width:25%;
     margin:20px;
     border: 5px solid black;
-
 }
-
-img {
-  width: 25%;
-  margin: 20px;
-  border: 5px solid black;
-}
-
-section {
-  /*outline: 5px dotted orange;*/
-}
-ul {
-  list-style-type: none;
+.draw-chart {
+    width: 70px;
+    height: 30px;
+    padding:30px;
 }

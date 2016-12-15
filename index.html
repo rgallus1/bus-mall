@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
  <head>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"> </script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"> </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"> </script> -->
    <title>Lab 11 Bus Mall</title>
    <link rel="stylesheet" href="stylesheet.css">
-<html>
+
+</head>
 <header>
 <h1>Please review the products below and click on those that are of interest to you.</h1>
 <h2>Be sure to click on the images and not in between.  You may make 25 selections, but no more.</h2>
@@ -17,9 +19,13 @@
     <img id="right" src="" />
   </section>
 
-  <ul id="pictureList"></ul>
+  <!-- <ul id="pictureList"></ul> -->
 
-  <canvas id="busmall" width="150" height="150"> </canvas>
+  <div>
+    <button id="draw-chart">Click here to see a chart!</button>
+  </div>
+
+  <canvas id="busmall-chart" width="1000" height="500"> </canvas>
 
 <script src="app.js"></script>
 
