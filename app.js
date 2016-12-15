@@ -5,6 +5,8 @@ var picContainer = document.getElementById('pic-container');
 var left = document.getElementById('left');
 var center = document.getElementById('center');
 var right = document.getElementById('right');
+var busmallChart;
+//var chartDrawn = false;
 
 // Global variables
 var allProducts = [];
@@ -109,41 +111,32 @@ function handlerEventClick(event) {//see picContainer below this is where its ti
 
   clickCount +=1;
 
-  if (clickCount > 5) {
+  if (clickCount > 25) {
     displayList();
     return alert ('You are out of clicks');
   }
 
-
-
-//   //Event Listener is always listening
-
+//local storage follows
   var stuff = JSON.stringify(allProducts);
   localStorage.setItem('productData', stuff);
-
-
   displayThreePics();
 }
 
 //checks to see if there is local storage present
-
 function storeDataRetrieve(){
-if(localStorage.productData){
-  console.log('local Storage exists!')
+  if(localStorage.productData){
+    console.log('local Storage exists!')
 
+    var retrievedStuff = localStorage.getItem('productData');
+    var parsedStuff = JSON.parse(retrievedStuff);
 
-  var retrievedStuff = localStorage.getItem('productData');
-  var parsedStuff = JSON.parse(retrievedStuff);
-
-  allProducts = parsedStuff
-  console.log(allProducts);
-  console.log(parsedStuff);
-}
-
+    allProducts = parsedStuff
+    console.log(allProducts);
+    console.log(parsedStuff);
+  }
 }
 //calls check to see if local storage is present
 storeDataRetrieve();
-
 
 picContainer.addEventListener('click', handlerEventClick);
 
@@ -162,29 +155,28 @@ function displayList() {
   }
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++
 //Bar Chart Section
 // FUNCTION DECLARATIONS
 // ++++++++++++++++++++++++++++++++++++++++++++
 // Arrays to hold data for the chart
+var chartName = [];
 var chartClicks = [];
-var chartViews = [];
+
 
 //function to update the chart Arrays
 function updateChartArrays() {
   for (var i = 0; i < allProducts.length; i++) {
+    chartName[i] = allProducts[i].prodName;
     chartClicks[i] = allProducts[i].clicks;
-    chartViews[i] = allProducts[i].views;
   }
 }
 updateChartArrays();
-
-
+console.log('in update Chart Arrays');
 var data = {
-  labels: chartClicks, // titles array we declared earlier
+  labels: chartName, // titles array we declared earlier
   datasets: [
     {
-      data: chartViews, // votes array we declared earlier
+      data: chartClicks, // votes array we declared earlier
       backgroundColor: [
         'bisque',
         'darkgray',
@@ -203,9 +195,9 @@ var data = {
 };
 
 function drawChart() {
-  var ctx = document.getElementById('bussmall').getContext('2d');
-  songChart = new Chart(ctx,{
-    type: 'polarArea',
+  var ctx = document.getElementById('busmall-chart').getContext('2d');
+  busmallChart = new Chart(ctx,{
+    type: 'bar',
     data: data,
     options: {
       responsive: false
@@ -216,38 +208,11 @@ function drawChart() {
       }
     }]
   });
-  chartDrawn = true;
+  //chartDrawn = true;
 }
-
-
-// function hideChart() {
-//   document.getElementById('funky-chart').hidden = true;
-// }
 // // ++++++++++++++++++++++++++++++++++++++++++++
 // // EVENT LISTENERS
 // // ++++++++++++++++++++++++++++++++++++++++++++
-//
-// document.getElementById('draw-chart').addEventListener('click', function(){
-//   drawChart();
-//   // setTimeout(hideChart, 5000);
-// });
-//
-// document.getElementById('list-button').addEventListener('click', function(){
-//   showSongsAsList();
-// });
-//
-// // document.getElementById('list-button').addEventListener('click', showSongsAsList);
-//
-// document.getElementById('funky-list').addEventListener('click', function(){
-//   document.getElementById('funky-list').hidden = true;
-// });
-//
-// document.getElementById('voting').addEventListener('click', function(event){
-//   if (event.target.id !== 'voting') {
-//     tallyVote(event.target.id);
-//   };
-//
-//   if (chartDrawn) {
-//     songChart.update();
-//   }
-// });
+document.getElementById('draw-chart').addEventListener('click', function(){
+  drawChart();
+});
